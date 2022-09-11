@@ -75,7 +75,7 @@ windower.register_event('addon command', function (...)
         if check_inv(item) then
             drop_item(item)
         else 
-			item = string.gsub(" "..item, "%W%l", string.upper):sub(2)
+            item = string.gsub(" "..item, "%W%l", string.upper):sub(2)
             log(('No \30\02%s\30\01 was found in your inventory.':format(item)))
         end
     end     
