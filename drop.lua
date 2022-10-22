@@ -26,7 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. --]]
 
 _addon.name = 'Drop'
 _addon.author = 'Arico'
-_addon.version = '1.0'
+_addon.version = '1.5'
 _addon.command = 'drop'
 
 res_items = require('resources').items
@@ -34,14 +34,11 @@ packets = require('packets')
 require('luau')
 require('logger')
 
-check_inv = function(item_to_drop)
-        for k, v in pairs(windower.ffxi.get_items().inventory) do
-            if type(v) == 'table' and v.id and v.id > 0 and res_items[v.id].name:lower() == item_to_drop then
-                return true
-            end
-        end
-    return false
-end
+windower.register_event('load', function(...)
+    for k,v in pairs(res_items) do
+        item_names[string.lower(v.english)] = {id = k}
+    end
+end)
 
 drop_item = function(item_to_drop) 
     for k, v in pairs(windower.ffxi.get_items().inventory) do
@@ -68,13 +65,13 @@ windower.register_event('addon command', function (...)
         args[1] = windower.convert_auto_trans(args[1])
     end
     
-	
     local item = table.concat(args, ' ',1,#args):lower()
 
     if item then
-        if check_inv(item) then
-            drop_item(item)
-        else 
+        if item_names[item] == nil
+            item = string.gsub(" "..item, "%W%l", string.upper):sub(2)
+            log(('No \30\02%s\30\01 was found in your inventory.':format(item)))
+        else 	
             item = string.gsub(" "..item, "%W%l", string.upper):sub(2)
             log(('No \30\02%s\30\01 was found in your inventory.':format(item)))
         end
