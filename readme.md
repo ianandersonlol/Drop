@@ -10,7 +10,7 @@ The addon supports auto-translate, so you do not need to worry about capitalizat
 
 ### Example
 
-//drop Hi-Potion
+`//drop Hi-Potion`
 
 This will drop a single Hi-Potion from your inventory.
 
