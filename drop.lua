@@ -68,7 +68,7 @@ windower.register_event('addon command', function (...)
     local item = table.concat(args, ' ',1,#args):lower()
 
     if item then
-        if item_names[item] == nil
+        if item_names[item] == nil then
             item = string.gsub(" "..item, "%W%l", string.upper):sub(2)
             log(('No \30\02%s\30\01 was found in your inventory.':format(item)))
         else 	
