@@ -34,6 +34,7 @@ packets = require('packets')
 require('luau')
 require('logger')
 
+item_names = {}
 windower.register_event('load', function(...)
     for k,v in pairs(res_items) do
         item_names[string.lower(v.english)] = {id = k}
